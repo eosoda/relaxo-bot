@@ -7,26 +7,26 @@ const client = new DiscordJS.Client({
 })
 const token = process.env.TOKEN
 //express
-const http = require('http')
-const express = require('express')
-const path = require('path')
-const app = express()
-app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
-// // default URL for website
-// app.use('/', function (req, res) {
+// const http = require('http')
+// const express = require('express')
+// const path = require('path')
+// const app = express()
+// app.use(express.json())
+// app.use(express.static(path.join(__dirname, 'public')))
+// // // default URL for website
+// // app.use('/', function (req, res) {
+// //   res.sendFile(path.join(__dirname + '/public/index.html'))
+// //   //__dirname : It will resolve to your project folder
+// // })
+// app.get('/', (req, res) => {
 //   res.sendFile(path.join(__dirname + '/public/index.html'))
-//   //__dirname : It will resolve to your project folder
 // })
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/index.html'))
-})
-app.get('/suporte', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/suporte.html'))
-})
-const server = http.createServer(app)
-const port = process.env.PORT || 3000
-server.listen(port)
+// app.get('/suporte', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/public/suporte.html'))
+// })
+// const server = http.createServer(app)
+// const port = process.env.PORT || 3000
+// server.listen(port)
 //end express
 
 client.on('ready', () => {
