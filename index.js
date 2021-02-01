@@ -2,17 +2,37 @@ require('dotenv').config()
 
 const DiscordJS = require('discord.js')
 const WOKCommands = require('wokcommands')
-require('dotenv').config()
-
 const client = new DiscordJS.Client({
-  partials: ['MESSAGE', 'REACTION'],
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 })
+const token = process.env.TOKEN
+//express
+const http = require('http')
+const express = require('express')
+const path = require('path')
+const app = express()
+app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
+// // default URL for website
+// app.use('/', function (req, res) {
+//   res.sendFile(path.join(__dirname + '/public/index.html'))
+//   //__dirname : It will resolve to your project folder
+// })
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/index.html'))
+})
+app.get('/suporte', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/suporte.html'))
+})
+const server = http.createServer(app)
+const port = process.env.PORT || 433
+server.listen(port)
+//end express
 
 client.on('ready', () => {
   // See the "Language Support" section of this documentation
   // An empty string = ignored
   const messagesPath = 'messages.json'
-
   // Used to configure the database connection.
   // These are the default options but you can overwrite them
   const dbOptions = {
@@ -21,14 +41,13 @@ client.on('ready', () => {
     useUnifiedTopology: true,
     useFindAndModify: false,
   }
-
   // Initialize WOKCommands with specific folders and MongoDB
   new WOKCommands(client, {
     commandsDir: 'commands',
     // featureDir: 'features',
     messagesPath,
-    showWarns: true, // Show start up warnings
-    dbOptions
+    showWarns: false, // Show start up warnings
+    dbOptions,
   })
     // Set your MongoDB connection path
     .setMongoPath(process.env.MONGO_URI)
@@ -38,4 +57,4 @@ client.on('ready', () => {
     .setColor(0xff0000)
 })
 
-client.login(process.env.TOKEN)
+client.login(token)
