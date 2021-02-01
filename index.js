@@ -25,7 +25,7 @@ app.get('/suporte', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/suporte.html'))
 })
 const server = http.createServer(app)
-const port = process.env.PORT || 433
+const port = process.env.PORT || 3000
 server.listen(port)
 //end express
 
