@@ -1,7 +1,9 @@
 const Commando = require('discord.js-commando')
 const axios = require('axios')
 
-module.exports = class CatCommand extends Commando.Command {
+module.exports = class CatCommand extends (
+  Commando.Command
+) {
   constructor(client) {
     super(client, {
       name: 'cat',

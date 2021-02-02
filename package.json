@@ -11,9 +11,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "mal-scraper": "^2.11.2",
     "mongoose": "^5.11.14",
     "wokcommands": "^1.2.1"
   }

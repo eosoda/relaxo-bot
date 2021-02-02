@@ -1,35 +1,13 @@
 require('dotenv').config()
-
 const DiscordJS = require('discord.js')
 const WOKCommands = require('wokcommands')
 const client = new DiscordJS.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 })
 const token = process.env.TOKEN
-//express
-const http = require('http')
-const express = require('express')
-const path = require('path')
-const app = express()
-app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
-// // default URL for website
-// app.use('/', function (req, res) {
-//   res.sendFile(path.join(__dirname + '/public/index.html'))
-//   //__dirname : It will resolve to your project folder
-// })
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/index.html'))
-})
-app.get('/suporte', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/suporte.html'))
-})
-const server = http.createServer(app)
-const port = process.env.PORT
-server.listen(port)
-//end express
 
 client.on('ready', () => {
+  client.user.setPresence('RelaxÔ 💆‍♂️')
   // See the "Language Support" section of this documentation
   // An empty string = ignored
   const messagesPath = 'messages.json'
@@ -49,10 +27,35 @@ client.on('ready', () => {
     showWarns: false, // Show start up warnings
     dbOptions,
   })
+    .setBotOwner('136460373564981248')
     // Set your MongoDB connection path
     .setMongoPath(process.env.MONGO_URI)
     // Set the default prefix for your bot, it is ! by default
     .setDefaultPrefix('!')
+
+    // Set the category emoji by using it's settings:
+    .setCategorySettings([
+      {
+        // You can change the default emojis as well
+        name: 'Configuration',
+        emoji: '🚧',
+        // You can also hide a category from the help menu
+        // Admins bypass this
+        hidden: true,
+      },
+      {
+        name: 'Staff',
+        emoji: '👑',
+      },
+      {
+        name: 'Misc',
+        emoji: '⛏️',
+      },
+      {
+        name: 'Economy',
+        emoji: '💸',
+      },
+    ])
     // Set the embed color for your bot. The default help menu will use this. This hex value can be a string too
     .setColor(0xff0000)
 })

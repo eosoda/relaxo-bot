@@ -1,10 +1,12 @@
 module.exports = {
   name: 'clear', // Optional
   aliases: ['clear', 'cc', 'limpa'],
+  guildOnly: true,
   category: 'Staff',
   description: 'Limpa mensagens',
   minArgs: 1,
-  expectedArgs: '<num>',
+  maxArgs: 2,
+  expectedArgs: '<qtd>',
   requiredPermissions: ['ADMINISTRATOR'],
   callback: ({ message, args }) => {
     const num = +args
@@ -22,6 +24,5 @@ module.exports = {
         })
       }
     })
-    
-  } 
-} 
+  },
+}

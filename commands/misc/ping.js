@@ -10,5 +10,5 @@ module.exports = {
 
       resultMessage.edit(`Bot latency: ${ping}, API Latency: ${client.ws.ping}`)
     })
-  }
+  },
 }
