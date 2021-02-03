@@ -3,9 +3,8 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = {
   name: 'anime', // Optional
-  category: 'Misc',
+  category: 'Info',
   description: 'Pesquisa informações sobre um anime',
-  // callback: ({ message, args, text, client, prefix, instance }) => {}
   callback: ({ message, client, text }) => {
     const anime = text
 

@@ -3,6 +3,7 @@ const DiscordJS = require('discord.js')
 const WOKCommands = require('wokcommands')
 const client = new DiscordJS.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+  disableEveryone: true,
 })
 const token = process.env.TOKEN
 
@@ -54,6 +55,10 @@ client.on('ready', () => {
       {
         name: 'Economy',
         emoji: '💸',
+      },
+      {
+        name: 'Info',
+        emoji: '📃',
       },
     ])
     // Set the embed color for your bot. The default help menu will use this. This hex value can be a string too
