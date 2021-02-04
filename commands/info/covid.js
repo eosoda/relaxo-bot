@@ -29,6 +29,9 @@ module.exports = {
         .addField('Casos de Hoje', corona.todayCases.toLocaleString(), true)
         .addField('Mortos Hoje', corona.todayDeaths.toLocaleString(), true)
         .addField('Casos Ativos', corona.active.toLocaleString(), true)
+        .setThumbnail(
+          'https://www.firstdecatur.org/wp-content/uploads/2019/07/Globe-Icon-3.png'
+        )
 
       message.channel.send(embed)
     } else {

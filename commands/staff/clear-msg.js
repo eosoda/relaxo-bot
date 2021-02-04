@@ -1,6 +1,6 @@
 module.exports = {
   name: 'clear', // Optional
-  aliases: ['clear', 'cc', 'limpa'],
+  aliases: ['cc', 'limpa'],
   guildOnly: true,
   category: 'Staff',
   description: 'Limpa mensagens',

@@ -5,6 +5,11 @@ const client = new DiscordJS.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   disableEveryone: true,
 })
+const DisTube = require('distube')
+const distube = new DisTube(client, {
+  searchSongs: true,
+  emitNewSongOnly: true,
+})
 const token = process.env.TOKEN
 
 client.on('ready', () => {
@@ -63,6 +68,7 @@ client.on('ready', () => {
     ])
     // Set the embed color for your bot. The default help menu will use this. This hex value can be a string too
     .setColor(0xff0000)
+    .setDefaultLanguage('portuguese')
 })
 
 client.login(token)
