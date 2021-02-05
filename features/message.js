@@ -2,11 +2,11 @@
 // Folder: "./features"
 
 module.exports = (client, instance) => {
-  client.on('message', (message) => {
-    if (message.author.bot) {
-      console.log('bot falou')
-    }
-  })
+  // client.on('message', (message) => {
+  //   if (message.author.bot) {
+  //     console.log('bot falou')
+  //   }
+  // })
 }
 
 module.exports.config = {

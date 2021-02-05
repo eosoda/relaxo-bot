@@ -1,14 +1,16 @@
-const distube = require('distube')
 module.exports = {
   name: 'play', // Optional
-  guildOnly: true,
   category: 'Music',
   description: 'Toca uma música ai',
-  minArgs: 1,
-  maxArgs: 1,
-  expectedArgs: '<url>',
-  requiredRoles: ['DJ'],
-  callback: ({ client, message, args }) => {
-    client.distube.play(message, args)
+  aliases: 'p',
+  // minArgs: 1,
+  // expectedArgs: '<url>',
+  callback: async ({ client, message, args }) => {
+    if (!message.member.voice.channel)
+      return message.channel.send(
+        `${client.emotes.error} | Você precisa estar em um canal de voz!`
+      )
+    const music = args.join(' ')
+    client.distube.play(message, music)
   },
 }

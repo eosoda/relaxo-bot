@@ -1,8 +1,8 @@
 module.exports = {
   name: 'add', // Optional
-  aliases: 'soma',
   category: 'Misc',
   description: 'Soma dois números',
+  aliases: 'soma',
   callback: ({ message, args }) => {
     let sum = 0
 

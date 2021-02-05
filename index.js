@@ -2,23 +2,20 @@ require('dotenv').config()
 const DiscordJS = require('discord.js')
 const WOKCommands = require('wokcommands')
 const client = new DiscordJS.Client({
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
-  disableEveryone: true,
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],
 })
 const DisTube = require('distube')
-const distube = new DisTube(client, {
-  searchSongs: true,
-  emitNewSongOnly: true,
-})
+client.distube = new DisTube(client)
+
 const token = process.env.TOKEN
+const config = require('./config.json')
+client.config = require('./config.json')
+client.emotes = config.emoji
 
 client.on('ready', () => {
-  client.user.setPresence('RelaxÔ 💆‍♂️')
-  // See the "Language Support" section of this documentation
-  // An empty string = ignored
+  console.log(`Logged in as ${client.user.tag}!`)
+  client.user.setActivity('RelaxÔ 💆‍♂️')
   const messagesPath = 'messages.json'
-  // Used to configure the database connection.
-  // These are the default options but you can overwrite them
   const dbOptions = {
     keepAlive: true,
     useNewUrlParser: true,
@@ -28,7 +25,7 @@ client.on('ready', () => {
   // Initialize WOKCommands with specific folders and MongoDB
   new WOKCommands(client, {
     commandsDir: 'commands',
-    // featureDir: 'features',
+    featureDir: 'features',
     messagesPath,
     showWarns: false, // Show start up warnings
     dbOptions,
