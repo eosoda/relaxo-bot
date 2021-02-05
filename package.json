@@ -12,14 +12,16 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.4.0",
+    "@freezegold/anime.js": "^2.0.3",
     "axios": "^0.21.1",
+    "common-tags": "^1.8.0",
     "discord.js": "^12.5.1",
     "distube": "^2.8.8",
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.7",
-    "mal-scraper": "^2.11.2",
     "mongoose": "^5.11.15",
     "novelcovid": "^3.0.0",
+    "random-puppy": "^1.1.0",
     "wokcommands": "^1.2.1"
   }
 }

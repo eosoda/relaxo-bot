@@ -5,24 +5,61 @@ module.exports = {
   category: 'Staff',
   description: 'Limpa mensagens',
   minArgs: 1,
-  maxArgs: 2,
+  maxArgs: 1,
   expectedArgs: '<qtd>',
   requiredPermissions: ['ADMINISTRATOR'],
-  callback: ({ message, args }) => {
-    const num = +args
-    message.channel.messages.fetch().then((n) => {
-      n = num
+  callback: ({ client, message, args }) => {
+    if (message.deletable) {
       message.delete()
-      message.channel.bulkDelete(n)
-      if (n == 1) {
-        message.reply(`${n} mensagem deletada`).then((msg) => {
-          msg.delete({ timeout: 1000 })
+    }
+
+    // Member doesn't have permissions
+    if (!message.member.hasPermission('MANAGE_MESSAGES')) {
+      return message
+        .reply('Você não pode excluir mensagens...')
+        .then((m) => m.delete(5000))
+    }
+
+    // Check if args[0] is a number
+    if (isNaN(args[0]) || parseInt(args[0]) <= 0) {
+      return message.channel
+        .send(
+          'Sim .... Isso não é um número! A propósito, também não consigo excluir 0 mensagens.'
+        )
+        .then((m) => m.delete(5000))
+    }
+    // Maybe the bot can't delete messages
+    if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
+      return message.channel
+        .send('Desculpe... Não consigo excluir mensagens.')
+        .then((m) => m.delete(5000))
+    }
+
+    let deleteAmount
+
+    if (parseInt(args[0]) > 100) {
+      deleteAmount = 100
+    } else {
+      deleteAmount = parseInt(args[0])
+    }
+
+    message.channel
+      .bulkDelete(deleteAmount, true)
+      .then((deleted) => {
+        message.channel.send({
+          embed: {
+            // author: {
+            //   icon_url: client.user.defaultAvatarURL,
+            //   name: client.user.username,
+            // },
+            title: `Eu deletei \`${deleted.size}\` mensagens.`,
+            // footer: {
+            //   icon_url: client.user.defaultAvatarURL,
+            //   text: client.user.username,
+            // },
+          },
         })
-      } else {
-        message.reply(`${n} mensagens deletadas`).then((msg) => {
-          msg.delete({ timeout: 1000 })
-        })
-      }
-    })
+      })
+      .catch((err) => message.reply(`Algo deu errado... ${err}`))
   },
 }
