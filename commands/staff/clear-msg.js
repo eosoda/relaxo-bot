@@ -8,7 +8,7 @@ module.exports = {
   maxArgs: 1,
   expectedArgs: '<qtd>',
   requiredPermissions: ['ADMINISTRATOR'],
-  callback: ({ client, message, args }) => {
+  callback: ({ message, args }) => {
     if (message.deletable) {
       message.delete()
     }
@@ -24,7 +24,7 @@ module.exports = {
     if (isNaN(args[0]) || parseInt(args[0]) <= 0) {
       return message.channel
         .send(
-          'Sim .... Isso não é um número! A propósito, também não consigo excluir 0 mensagens.'
+          'Sim... Isso não é um número! A propósito, também não consigo excluir 0 mensagens.'
         )
         .then((m) => m.delete(5000))
     }
@@ -45,20 +45,11 @@ module.exports = {
 
     message.channel
       .bulkDelete(deleteAmount, true)
-      .then((deleted) => {
-        message.channel.send({
-          embed: {
-            // author: {
-            //   icon_url: client.user.defaultAvatarURL,
-            //   name: client.user.username,
-            // },
-            title: `Eu deletei \`${deleted.size}\` mensagens.`,
-            // footer: {
-            //   icon_url: client.user.defaultAvatarURL,
-            //   text: client.user.username,
-            // },
-          },
+      .then(async (deleted) => {
+        let response = await message.channel.send({
+          embed: { title: `Eu deletei \`${deleted.size}\` mensagens.` },
         })
+        response.delete({ timeout: 2000 })
       })
       .catch((err) => message.reply(`Algo deu errado... ${err}`))
   },
