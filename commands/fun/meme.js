@@ -3,7 +3,7 @@ const randomPuppy = require('random-puppy')
 
 module.exports = {
   name: 'meme', // Optional
-  category: 'Misc',
+  category: 'Fun',
   description: 'Mostra um meme aleatório',
   callback: async ({ message }) => {
     const subReddits = ['dankmeme', 'meme', 'me_irl']

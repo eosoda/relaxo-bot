@@ -8,7 +8,7 @@ module.exports = {
   name: 'anime', // Optional
   category: 'Info',
   description: 'Pesquisa informações sobre um anime',
-  callback: ({ message, client, args }) => {
+  callback: ({ message, args }) => {
     if (!args[0]) {
       return message.channel.send('Please Give ous the name of anime')
     }

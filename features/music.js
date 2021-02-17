@@ -19,17 +19,26 @@ module.exports = (client, message) => {
         .setTitle(`${song.name} - ${song.formattedDuration}`)
         .setURL(`${song.url}`)
         .setColor('RANDOM')
-        .setDescription(`Requisitado by: ${song.user}\n${status(queue)}`)
+        .setDescription(`Requisitado por: ${song.user}\n${status(queue)}`)
         .setThumbnail(`${song.thumbnail}`)
         .setTimestamp()
-        .setFooter(`Request by: ${song.user}`, ``)
+        .setFooter(
+          'Request by: ' + message.author.username,
+          message.author.avatarURL()
+        )
+      message.channel.send(embed)
+      console.log(message.author)
+    })
+    .on('addSong', (message, queue, song) => {
+      const embed = new MessageEmbed()
+        .setTitle(`Added ${song.name} - \`${song.formattedDuration}\``)
+        .setURL(`${song.url}`)
+        .setColor('RANDOM')
+        .setThumbnail(`${song.thumbnail}`)
+        .setTimestamp()
+        .setFooter(`Request by: ${song.user}`, message.author.avatarURL())
       message.channel.send(embed)
     })
-    .on('addSong', (message, queue, song) =>
-      message.channel.send(
-        `Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-      )
-    )
     .on('playList', (message, queue, playlist, song) =>
       message.channel.send(
         `Play \`${playlist.name}\` playlist (${

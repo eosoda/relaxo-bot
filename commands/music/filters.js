@@ -1,7 +1,7 @@
 module.exports = {
   name: 'filtro', // Optional
   category: 'Music',
-  description: 'Toca uma música ai',
+  description: 'Filtros música',
   aliases: ['filter', 'filtros'],
   minArgs: 0,
   // expectedArgs: '<url>',

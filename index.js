@@ -14,7 +14,7 @@ client.emotes = config.emoji
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity('RelaxÔ 💆‍♂️')
+  client.user.setActivity('RelaxÔ 💆‍♂️', { type: 'WATCHING' })
   const messagesPath = 'messages.json'
   const dbOptions = {
     keepAlive: true,
@@ -44,6 +44,11 @@ client.on('ready', () => {
         emoji: '🚧',
         // You can also hide a category from the help menu
         // Admins bypass this
+        hidden: true,
+      },
+      {
+        name: 'Dev',
+        emoji: '👨‍💻',
         hidden: true,
       },
       {

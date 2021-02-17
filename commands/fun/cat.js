@@ -2,7 +2,7 @@ const axios = require('axios')
 
 module.exports = {
   name: 'cat', // Optional
-  category: 'Misc',
+  category: 'Fun',
   description: 'Mostra foto aleatória de um gatinho',
   callback: async ({ message }) => {
     axios
