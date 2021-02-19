@@ -4,6 +4,8 @@
 module.exports = (client) => {
   client.on('message', (message) => {
     if (message.author.bot) return //Ignore other bots
+    if (message.channel.type == 'DM') return //Ignore DM's
+
     //   if (message.author.bot) {
     //     console.log('bot falou')
     //   }
