@@ -5,40 +5,29 @@ module.exports = {
   name: 'Weather', // Optional
   category: 'Info',
   description: 'Pesquisa sobre previsão do tempo',
-  minArgs: 0,
+  minArgs: 1,
   maxArgs: 1,
   expectedArgs: '<local>',
   aliases: ['previsao', 'clima'],
   callback: async ({ message, args }) => {
-    if (!args.length) {
-      return message.channel.send('Por favor, forneça a localização do clima')
-    }
-
     weather.find(
       { search: args.join(' '), degreeType: 'C' },
       function (err, result) {
         try {
           let embed = new MessageEmbed()
-            .setTitle(`Previsão do Tempo - ${result[0].location.name}`)
-            .setColor('#ff2050')
-            .setDescription(
-              'As unidades de temperatura podem ser diferentes em algum momento'
-            )
-            .addField(
-              'Temperatura',
-              `${result[0].current.temperature} Celsius`,
-              true
-            )
-            .addField('Céu', result[0].current.skytext, true)
-            .addField('Umidade', result[0].current.humidity, true)
-            .addField('Velocidade do vento', result[0].current.windspeed, true) //What about image
-            .addField(
-              'Tempo de Observação',
-              result[0].current.observationtime,
-              true
-            )
-            .addField('Exibição de vento', result[0].current.winddisplay, true)
+            .setColor('RANDOM')
+            .setTitle(`Previsão em: ${result[0].location.name}`)
             .setThumbnail(result[0].current.imageUrl)
+            .addField(
+              'Temperatura: ',
+              `${result[0].current.temperature}°C`,
+              true
+            )
+            .addField('Sensação: ', `${result[0].current.feelslike}°C`, true)
+            .addField('Humidade: ', `${result[0].current.humidity}%`, true)
+            .setDescription(
+              `**Sky weather:** ${result[0].current.skytext} \n\n **Wind info:** ${result[0].current.winddisplay}`
+            )
           message.channel.send(embed)
         } catch (err) {
           return message.channel.send(

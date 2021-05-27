@@ -14,7 +14,7 @@ module.exports = {
       .setDescription(
         '__**1.**__ Sem spam ou inundar o chat com mensagens, símbolos ou imagens etc. \n' +
           '__**2.**__ Não digite em CAPS. \n' +
-          ` __**3.**__ adulto (18+), imagens explícitas etc, vá para o canal ${nfsw} \n` +
+          `__**3.**__ adulto (18+), imagens explícitas etc, vá para o canal ${nfsw} \n` +
           '__**4.**__ Nenhum conteúdo racista ou degradante.\n' +
           '__**5.**__ Sem xingamentos excessivos. \n' +
           '__**6.**__ Nenhuma publicidade de outros sites/servidores discord sem permissão. \n' +

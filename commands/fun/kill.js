@@ -2,14 +2,6 @@ const { MessageEmbed } = require('discord.js')
 const fs = require('fs')
 const kills = require('../../killed.json')
 
-const killGifs = [
-  `https://media1.tenor.com/images/0304cf80269c43d51bab9554c04435e9/tenor.gif`,
-  `https://64.media.tumblr.com/5dae40d8a40d8b74ab1752e788edac8a/tumblr_p5rj16Pjh41ri5ljho1_400.gifv`,
-  `https://media1.tenor.com/images/d42b8c67ceb776052cadb53306dd2b12/tenor.gif`,
-  `https://media1.tenor.com/images/c4b237dbcf676cf49a6d6d11cfbe45c8/tenor.gif`,
-  `https://i.makeagif.com/media/10-04-2015/_ex9rl.gif`,
-]
-
 module.exports = {
   name: 'kill', // Optional
   category: 'Fun',
@@ -18,6 +10,13 @@ module.exports = {
   maxArgs: 1,
   expectedArgs: '<@user>',
   callback: async ({ message }) => {
+    const killGifs = [
+      `https://media1.tenor.com/images/0304cf80269c43d51bab9554c04435e9/tenor.gif`,
+      `https://64.media.tumblr.com/5dae40d8a40d8b74ab1752e788edac8a/tumblr_p5rj16Pjh41ri5ljho1_400.gifv`,
+      `https://media1.tenor.com/images/d42b8c67ceb776052cadb53306dd2b12/tenor.gif`,
+      `https://media1.tenor.com/images/c4b237dbcf676cf49a6d6d11cfbe45c8/tenor.gif`,
+      `https://i.makeagif.com/media/10-04-2015/_ex9rl.gif`,
+    ]
     const target = message.mentions.users.first()
 
     if (!target)
@@ -47,10 +46,7 @@ module.exports = {
       const emb = new MessageEmbed()
         .setColor('##8a0303')
         .setTitle(`${message.author.username} killed ${target.username} 🔪`)
-        .setDescription(
-          `${message.author.username} killed ${target.username} 🔪 \n` +
-            `${target} has been killed ${deathCount} times!`
-        )
+        .setDescription(`${target} has been killed ${deathCount} times!`)
         .setImage(gif)
         .setTimestamp()
 

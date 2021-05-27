@@ -2,7 +2,6 @@
 const { MessageEmbed } = require('discord.js')
 const animeJs = require('@freezegold/anime.js')
 const animej = new animeJs.Client()
-const fetch = require('node-fetch')
 
 module.exports = {
   name: 'anime', // Optional

@@ -1,30 +1,31 @@
 const { MessageEmbed } = require('discord.js')
 
-let pGifs = [
-  `https://i.pinimg.com/originals/f3/ec/8c/f3ec8c256cb22279c14bfdc48c92e5ab.gif`,
-  `https://media2.giphy.com/media/AlsIdbTgxX0LC/giphy.gif`,
-  `https://i.pinimg.com/originals/d7/c3/0e/d7c30e46a937aaade4d7bc20eb09339b.gif`,
-  `https://i2.kym-cdn.com/photos/images/original/000/989/495/3b8.gif`,
-  `https://media.tenor.co/videos/e84c556455d1d3d0ed77064e3f9bcfa2/mp4`,
-]
-
 module.exports = {
   name: 'punch', // Optional
   category: 'Fun',
   description: 'punch someone',
-  minArgs: 0,
-  maxArgs: 1,
+  minArgs: 1,
+  aliases: ['soco', 'socao', 'murro'],
   expectedArgs: '<@user>',
-  callback: async ({ message, args }) => {
-    const target = message.mentions.users.first()
+  callback: async ({ message }) => {
+    let pGifs = [
+      `https://i.pinimg.com/originals/f3/ec/8c/f3ec8c256cb22279c14bfdc48c92e5ab.gif`,
+      ,
+      `https://media.tenor.co/videos/e84c556455d1d3d0ed77064e3f9bcfa2/mp4`,
+      `https://media.tenor.com/videos/015c89cf9b9f18a6df3635c8dad9de10/mp4`,
+      `https://media.tenor.com/videos/7e512a4b1f6205c15ed832a7a991e001/mp4`,
+      `https://media.tenor.com/videos/2321fbe48cbc2e11561a8b9553b4d2e2/mp4`,
+      `https://media.tenor.com/videos/221cb2ff1c6949077ff93ce349b7fa31/mp4`,
+      `https://media.tenor.com/videos/0550b5d0c8b25a9bf92485bfbae684bc/mp4`,
+      `https://media.tenor.com/videos/239a187bb95ffdf7f0c785fe1156ee90/mp4`,
+    ]
 
-    if (!target) return message.reply(`you can't punch yourself!`)
+    const target = message.mentions.users.first()
 
     let gif = pGifs[Math.floor(Math.random() * pGifs.length)]
 
-    let arg = message.mentions.users.first()
     let pEmbed = new MessageEmbed()
-      .setDescription(`${message.author.username} just punched ${target}!`)
+      .setDescription(`${message.author.username} socou ${target}!`)
       .setColor('#e0045e')
       .setImage(`${gif}`)
       .setTimestamp()

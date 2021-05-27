@@ -1,28 +1,5 @@
-const responses = [
-  'Pong!',
-  "I-It's not like I wanted to say pong or anything...",
-  'Pong...',
-  'Testing, testing, 1, 2, 3!',
-  'Anyone there?',
-  'Does anyone even use this?',
-  'Woo! A secret command!',
-  'Ping!... I mean **pong!**',
-  'Hi there!',
-  'At your service!',
-  'Yes?',
-  'Hello!',
-  'Konnichiwa~',
-  'Ohayoo~',
-  "I'm up and running!",
-  'Here I am!',
-  'Right here!',
-  'Hai!',
-  'Hey there!',
-  'You found me!',
-  'Nya!',
-  'N-Nya..?',
-  'Nyahaha you found me!',
-]
+const { MessageEmbed } = require('discord.js')
+const time = require('ms')
 
 module.exports = {
   name: 'ping', // Optional
@@ -31,17 +8,37 @@ module.exports = {
   minArgs: 0,
   maxArgs: 0,
   // callback: ({ message, args, text, client, prefix, instance }) => {}
-  callback: async ({ message }) => {
-    const pingMsg = await message.channel.send({
-      embed: { title: '🔄 | Calculando Ping...' },
-    })
-    let pingM = pingMsg.createdTimestamp - message.createdTimestamp
-    let choice = responses[Math.floor(Math.random() * responses.length - 1)]
-    return pingMsg.edit({
-      embed: {
-        title: `🐱 | ${choice}`,
-        description: `Ping: \`(${pingM}ms)\``,
-      },
-    })
+  callback: async ({ client, message }) => {
+    // For the uptime for the discord bot ! ! !
+
+    const uptime = time(client.uptime)
+
+    // cool things yes.
+
+    let inline = true
+
+    // Sends a Messages
+
+    const pingMessage = await message.channel.send(
+      'Here are my Latency and API Latency and my uptime!'
+    )
+
+    // Code Below
+    // Also Change your setThumbnail and SetFooter
+
+    const Embede = new MessageEmbed()
+      .addField(
+        'My Latency is:',
+        `${pingMessage.createdTimestamp - message.createdTimestamp}ms`,
+        inline
+      )
+      .setColor('#11bed3')
+      .addField('My API Latency is:', `${Math.round(client.ws.ping)}ms`, inline)
+      .addField('I have been up for:', uptime)
+
+    // Embede.setThumbnail(client.user.displayAvatarURL())
+    Embede.setFooter('Ping Command', client.user.displayAvatarURL())
+    Embede.setTimestamp()
+    message.channel.send(Embede)
   },
 }

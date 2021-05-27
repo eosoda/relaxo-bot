@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js')
 module.exports = {
   name: 'skip', // Optional
   category: 'Music',
@@ -16,9 +17,16 @@ module.exports = {
       )
     try {
       client.distube.skip(message)
-      message.channel.send(
-        `${client.emotes.success} | Skipped! Now playing:\n${queue.songs[0].name}`
-      )
+      // message.channel.send(
+      //   `${client.emotes.success} | Skipped! Now playing:\n${queue.songs[0].name}`
+      // )
+      const embed = new MessageEmbed()
+        .setTitle(
+          `Skipped ${queue.songs[0].name} - \`${queue.songs[0].formattedDuration}\``
+        )
+        .setColor('RANDOM')
+        .setThumbnail(`${queue.songs[0].thumbnail}`)
+      message.channel.send(embed)
     } catch (e) {
       message.channel.send(`${client.emotes.error} | ${e}`)
     }

@@ -7,6 +7,7 @@ module.exports = {
   minArgs: 0,
   maxArgs: 1,
   description: 'Exibe informações do perfil',
+  aliases: 'perfil',
   expectedArgs: '<@usuario>',
   callback: async ({ message, args }) => {
     let user
@@ -16,11 +17,11 @@ module.exports = {
       user =
         message.mentions.members.first() ||
         (await message.guild.members.fetch(args[0]).catch((err) => {
-          return message.channel.send(':x: Unable to find this Person')
+          return message.channel.send(':x: Não consegui encontrar esse perfil')
         }))
     }
     if (!user) {
-      return message.channel.send(':x: Unable to find this person!')
+      return message.channel.send(':x: Não consegui encontrar esse perfil!')
     }
     //OPTIONS FOR STATUS
     let stat = {
@@ -31,7 +32,7 @@ module.exports = {
     }
     //NOW BADGES
     let badges = await user.user.flags
-    badges = (await badges) ? badges.toArray() : ['None']
+    badges = (await badges) ? badges.toArray() : ['Nenhum']
 
     let newbadges = []
     badges.forEach((m) => {
@@ -48,9 +49,9 @@ module.exports = {
       let data = user.user.presence.activities
 
       for (let i = 0; i < data.length; i++) {
-        let name = data[i].name || 'None'
-        let xname = data[i].details || 'None'
-        let zname = data[i].state || 'None'
+        let name = data[i].name || 'Nenhum'
+        let xname = data[i].details || 'Nenhum'
+        let zname = data[i].state || 'Nenhum'
         let type = data[i].type
 
         array.push(`**${type}** : \`${name} : ${xname} : ${zname}\``)
@@ -79,18 +80,21 @@ module.exports = {
     )
 
     //CHECK IF USER HAVE NICKNAME
-    if (user.nickname !== null) embed.addField('Nickname', user.nickname)
+    if (user.nickname !== null) embed.addField('Usuário', user.nickname)
     embed
-      .addField('Joined At', moment(user.joinedAt).format('DD-MM-YYYY'))
       .addField(
-        'Account Created At',
+        'Entrou no server em',
+        moment(user.joinedAt).format('DD-MM-YYYY')
+      )
+      .addField(
+        'Conta criada em',
         moment(user.user.createdAt).format('DD-MM-YYYY')
       )
-      .addField(
-        'Common Information',
-        `ID: \`${user.user.id}\`\nDiscriminator: ${user.user.discriminator}\nBot: ${user.user.bot}\nDeleted User: ${user.deleted}`
-      )
-      .addField('Badges', newbadges.join(', ').toLowerCase() || 'None')
+      // .addField(
+      //   'Common Information',
+      //   `ID: \`${user.user.id}\`\nDiscriminator: ${user.user.discriminator}\nBot: ${user.user.bot}\nDeleted User: ${user.deleted}`
+      // )
+      // .addField('Badges', newbadges.join(', ').toLowerCase() || 'None')
       .setFooter(user.user.presence.status, stat[user.user.presence.status])
 
     return message.channel.send(embed).catch((err) => {

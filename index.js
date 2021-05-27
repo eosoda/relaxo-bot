@@ -4,8 +4,11 @@ const WOKCommands = require('wokcommands')
 const client = new DiscordJS.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],
 })
-// const DisTube = require('distube')
-// client.distube = new DisTube(client)
+const DisTube = require('distube')
+client.distube = new DisTube(client, {
+  searchSongs: true,
+  emitNewSongOnly: true,
+})
 
 const token = process.env.TOKEN
 const config = require('./config.json')
@@ -15,7 +18,6 @@ client.emotes = config.emoji
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   client.user.setActivity('RelaxÔ 💆‍♂️', { type: 'WATCHING' })
-  client.user.setStatus('idle')
   const messagesPath = 'messages.json'
   const dbOptions = {
     keepAlive: true,

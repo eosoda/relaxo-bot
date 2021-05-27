@@ -3,15 +3,13 @@
 
 const { MessageEmbed } = require('discord.js')
 
+// channelM.setName(`Membros: ${memberCount.toLocaleString()}`)
+
 module.exports = (client) => {
-  // client.on('guildMemberAdd', (member) => {
-  //   // Send the message to a designated channel on a server:
-  //   const channel = member.guild.channels.cache.get('245638302839865345')
-  //   // Do nothing if the channel wasn't found on this server
-  //   if (!channel) return
-  //   // Send the message, mentioning the member
-  //   channel.send(`${member} has joined. Your soul is now mine`)
-  // })
+  const guildM = client.guilds.cache.get('245638302839865345')
+  const memberCount = guildM.memberCount
+  const channelM = guildM.channels.cache.get('804741316960321616')
+
   client.on('guildMemberAdd', (member) => {
     let welcomeGif = [
       'https://i.pinimg.com/originals/04/dd/db/04dddb24a548c4ce1069513d5cdd4d7a.gif',
@@ -29,10 +27,13 @@ module.exports = (client) => {
     let embed = new MessageEmbed()
       .setColor('RANDOM')
       .setThumbnail(memberavatar)
-      .addField(':bust_in_silhouette: | name : ', `${member}`)
-      .addField(':microphone2: | Welcome!', `Welcome to the server, ${member}`)
+      .addField(':bust_in_silhouette: | Nome : ', `${member}`)
       .addField(
-        ':family_mwgb: | Your are the newest member',
+        ':microphone2: | Bem-vindo!',
+        `Bem-vindo ao servidor, ${member}`
+      )
+      .addField(
+        ':family_mwgb: | Você é o mais novo membro',
         `${member.guild.memberCount}`
       )
       .setImage(gif)
@@ -42,9 +43,11 @@ module.exports = (client) => {
     channel.send(embed)
 
     // auto role
-    var role = member.guild.roles.cache.find((role) => role.name == 'Trolls')
+    var role = member.guild.roles.cache.find((role) => role.name == 'Membro')
     member.roles.add(role)
     // auto role end
+    channelM.setName(`Membros: ${memberCount.toLocaleString()}`)
+    console.log('Updating Member Count')
   })
 
   /**
@@ -56,7 +59,9 @@ module.exports = (client) => {
     // Do nothing if the channel wasn't found on this server
     if (!channel) return
     // Send the message, mentioning the member
-    channel.send(`${member} has left. I guess you can have your soul back`)
+    channel.send(`${member} saiu.`)
+    channelM.setName(`Membros: ${memberCount.toLocaleString()}`)
+    console.log('Updating Member Count')
   })
 }
 

@@ -19,7 +19,7 @@ module.exports = (client, message) => {
         .setTitle(`${song.name} - ${song.formattedDuration}`)
         .setURL(`${song.url}`)
         .setColor('RANDOM')
-        .setDescription(`Requisitado por: ${song.user}\n${status(queue)}`)
+        .setDescription(`${status(queue)}`)
         .setThumbnail(`${song.thumbnail}`)
         .setTimestamp()
         .setFooter(
@@ -27,7 +27,6 @@ module.exports = (client, message) => {
           message.author.avatarURL()
         )
       message.channel.send(embed)
-      console.log(message.author)
     })
     .on('addSong', (message, queue, song) => {
       const embed = new MessageEmbed()
